@@ -1,12 +1,15 @@
-const WebSocket = require('ws');
-const Stockfish = require('stockfish');
 const http = require("http");
+const WebSocket = require("ws");
+const Stockfish = require('stockfish');
+
+// Create an HTTP server
 const server = http.createServer((req, res) => {
     res.writeHead(200, { "Content-Type": "text/plain" });
     res.end("HTTP server is working!\n");
 });
-const wss = new WebSocket.Server(server);
-console.log('WebSocket server is running on ws://localhost:8080');
+
+// Create a WebSocket server attached to the HTTP server
+const wss = new WebSocket.Server({ server });
 
 wss.on('connection', (ws) => {
   console.log('New client connected');
@@ -35,6 +38,7 @@ wss.on('connection', (ws) => {
   ws.send('Stockfish engine loaded');
 });
 
+// Start the server
 const PORT = 8080;
 server.listen(PORT, () => {
     console.log("up and running!");
