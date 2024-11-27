@@ -1,7 +1,11 @@
 const WebSocket = require('ws');
 const Stockfish = require('stockfish');
 const http = require("http");
-const wss = new WebSocket.Server({ port: 8080 });
+const server = http.createServer((req, res) => {
+    res.writeHead(200, { "Content-Type": "text/plain" });
+    res.end("HTTP server is working!\n");
+});
+const wss = new WebSocket.Server(server);
 console.log('WebSocket server is running on ws://localhost:8080');
 
 wss.on('connection', (ws) => {
@@ -30,10 +34,7 @@ wss.on('connection', (ws) => {
   // Notify client that Stockfish is ready
   ws.send('Stockfish engine loaded');
 });
-const server = http.createServer((req, res) => {
-    res.writeHead(200, { "Content-Type": "text/plain" });
-    res.end("HTTP server is working!\n");
-});
+
 const PORT = 8080;
 server.listen(PORT, () => {
     console.log("up and running!");
