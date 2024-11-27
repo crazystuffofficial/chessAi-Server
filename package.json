@@ -1,0 +1,12 @@
+{
+  "name": "server-side-ai",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "stockfish": "^10.0.2",
+    "ws": "^8.18.0"
+  }
+}
